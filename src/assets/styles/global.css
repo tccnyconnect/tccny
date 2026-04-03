@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+Pro:wght@300;400;600&display=swap');
+/* Swapped to Inter (Sans) and Lora (Serif) to match the updated Tailwind config */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -10,65 +11,71 @@
   }
   
   body {
-    @apply font-sans text-gray-800 bg-gray-50;
+    /* Uses the new warm off-white background and deep slate text for softer contrast than pure black/gray */
+    @apply font-sans text-primary-900 bg-secondary-50;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-serif font-bold text-gray-900;
+    /* Lora looks more elegant at semibold rather than harsh bold, matching the church aesthetic */
+    @apply font-serif font-semibold text-primary-950;
   }
 
   h1 {
-    @apply text-4xl md:text-5xl;
+    @apply text-4xl md:text-5xl leading-tight;
   }
 
   h2 {
-    @apply text-3xl md:text-4xl;
+    @apply text-3xl md:text-4xl leading-snug;
   }
 
   h3 {
-    @apply text-2xl md:text-3xl;
+    @apply text-2xl md:text-3xl leading-snug;
   }
 
   h4 {
-    @apply text-xl md:text-2xl;
+    @apply text-xl md:text-2xl leading-normal;
   }
 
   h5 {
-    @apply text-lg md:text-xl;
+    @apply text-lg md:text-xl leading-normal;
   }
 
   h6 {
-    @apply text-base md:text-lg;
+    @apply text-base md:text-lg leading-normal;
   }
 }
 
 @layer components {
   .container {
-    @apply px-4 mx-auto max-w-7xl;
+    /* Added standard responsive padding for larger screens */
+    @apply px-4 mx-auto max-w-7xl sm:px-6 lg:px-8; 
   }
 
   .btn {
-    @apply inline-flex items-center justify-center px-5 py-3 text-base font-medium transition-all rounded-md shadow-sm;
+    /* Slightly rounder corners (rounded-lg) and longer padding for a more inviting, modern button */
+    @apply inline-flex items-center justify-center px-6 py-3 text-base font-medium transition-all duration-200 rounded-lg shadow-sm;
   }
 
   .btn-primary {
-    @apply text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2;
+    @apply text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 focus:ring-offset-secondary-50;
   }
 
   .btn-secondary {
-    @apply text-white bg-secondary-600 hover:bg-secondary-700 focus:outline-none focus:ring-2 focus:ring-secondary-500 focus:ring-offset-2;
+    @apply text-white bg-secondary-600 hover:bg-secondary-700 focus:outline-none focus:ring-2 focus:ring-secondary-500 focus:ring-offset-2 focus:ring-offset-secondary-50;
   }
 
   .btn-accent {
-    @apply text-white bg-accent-600 hover:bg-accent-700 focus:outline-none focus:ring-2 focus:ring-accent-500 focus:ring-offset-2;
+    @apply text-white bg-accent-600 hover:bg-accent-700 focus:outline-none focus:ring-2 focus:ring-accent-500 focus:ring-offset-2 focus:ring-offset-secondary-50;
   }
 
   .btn-outline {
-    @apply text-gray-700 bg-white border border-gray-300 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2;
+    /* Updated to use the primary color scheme instead of gray for better brand cohesion */
+    @apply text-primary-700 bg-transparent border-2 border-primary-600 hover:bg-primary-50 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 focus:ring-offset-secondary-50;
   }
 
   .card {
-    @apply overflow-hidden transition-all bg-white rounded-lg shadow-md hover:shadow-lg;
+    /* Softer shadows, slightly rounder corners, and a subtle border to make content blocks feel lighter */
+    @apply overflow-hidden transition-all duration-300 bg-white border border-secondary-100 rounded-xl shadow-sm hover:shadow-md;
   }
 }
 
@@ -78,9 +85,10 @@ details > summary::-webkit-details-marker {
 
 /* accordion effect */
 details > summary svg {
-  transition: transform 0.2s ease;
+  transition: transform 0.2s ease-in-out;
 }
 
 details[open] > summary svg {
+  /* Note: 45deg works well if your SVG is a '+' icon. If it's a chevron (down arrow), you may want to change this to 180deg */
   transform: rotate(45deg);
 }
