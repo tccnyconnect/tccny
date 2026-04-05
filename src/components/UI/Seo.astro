@@ -14,96 +14,110 @@ const {
   title,
   description,
   image = {
-    url: "/uploads/church-default.webp",
-    alt: "Church Name",
+    url: "/uploads/tccny-logo.png",
+    alt: "Telugu Christian Church New York (TCCNY)",
   },
   type = "website",
   canonicalUrl,
 } = Astro.props;
 
-// Get the canonical URL
-const canonicalURL = canonicalUrl || new URL(Astro.url.pathname, Astro.site);
+// Ensure your domain is correct
+const siteUrl = "https://tccny.church";
+const canonicalURL = canonicalUrl || new URL(Astro.url.pathname, siteUrl);
+const socialImageURL = new URL(image.url, siteUrl);
 
-// Get Church address and contact info (would come from site config in a real implementation)
+// Church Information Configuration
 const churchInfo = {
-  name: "Church Name",
+  name: "Telugu Christian Church, New York (TCCNY)",
+  legalName: "Telugu Christian Church of New York",
   address: {
-    streetAddress: "123 Main Street",
-    addressLocality: "Anytown",
-    addressRegion: "ST",
-    postalCode: "12345",
+    streetAddress: "262-22 Union Tpke",
+    addressLocality: "Floral Park",
+    addressRegion: "NY",
+    postalCode: "11004",
     addressCountry: "US",
   },
-  telephone: "+1-555-123-4567",
-  email: "info@churchname.org",
-  url: Astro.site?.toString() || "https://example.com",
+  telephone: "+1-213-822-4884",
+  email: "tccnyconnect@gmail.com",
+  url: siteUrl,
+  logo: `${siteUrl}/uploads/TCCNY-logo.png`,
+};
+
+// JSON-LD Structured Data for Google (Church & Organization)
+const schemaData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Church",
+      "@id": `${siteUrl}/#organization`,
+      "name": churchInfo.name,
+      "legalName": churchInfo.legalName,
+      "url": churchInfo.url,
+      "logo": {
+        "@type": "ImageObject",
+        "url": churchInfo.logo,
+        "width": "512",
+        "height": "512"
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": churchInfo.address.streetAddress,
+        "addressLocality": churchInfo.address.addressLocality,
+        "addressRegion": churchInfo.address.addressRegion,
+        "postalCode": churchInfo.address.postalCode,
+        "addressCountry": churchInfo.address.addressCountry
+      },
+      "telephone": churchInfo.telephone,
+      "email": churchInfo.email,
+      "description": description,
+      "sameAs": [
+        "https://facebook.com/tccny",
+        "https://instagram.com/tccny",
+        "https://youtube.com/@tccny"
+      ],
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": "Sunday",
+          "opens": "16:00",
+          "closes": "18:00"
+        }
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${siteUrl}/#website`,
+      "url": churchInfo.url,
+      "name": churchInfo.name,
+      "publisher": { "@id": `${siteUrl}/#organization` }
+    }
+  ]
 };
 ---
 
-<!-- Basic SEO -->
-<title>{title}</title>
+<title>{title} | TCCNY</title>
+<meta name="title" content={`${title} | TCCNY`} />
 <meta name="description" content={description} />
 <link rel="canonical" href={canonicalURL} />
 
-<!-- Open Graph / Facebook -->
-<meta property="og:type" content={type} />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="theme-color" content="#4f46e5" /> <meta property="og:type" content={type} />
 <meta property="og:url" content={canonicalURL} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
-<meta property="og:image" content={new URL(image.url, Astro.site)} />
+<meta property="og:image" content={socialImageURL} />
 <meta property="og:image:alt" content={image.alt} />
+<meta property="og:site_name" content="TCCNY" />
 
-<!-- Twitter -->
-<meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content={canonicalURL} />
-<meta property="twitter:title" content={title} />
-<meta property="twitter:description" content={description} />
-<meta property="twitter:image" content={new URL(image.url, Astro.site)} />
-<meta property="twitter:image:alt" content={image.alt} />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:url" content={canonicalURL} />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={socialImageURL} />
+<meta name="twitter:image:alt" content={image.alt} />
 
-<!-- JSON-LD Schema for Church -->
-<script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Church",
-    "name": "${churchInfo.name}",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "${churchInfo.address.streetAddress}",
-      "addressLocality": "${churchInfo.address.addressLocality}",
-      "addressRegion": "${churchInfo.address.addressRegion}",
-      "postalCode": "${churchInfo.address.postalCode}",
-      "addressCountry": "${churchInfo.address.addressCountry}"
-    },
-    "telephone": "${churchInfo.telephone}",
-    "email": "${churchInfo.email}",
-    "url": "${churchInfo.url}"
-  }
-</script>
+<meta name="robots" content="index, follow" />
 
-{
-  type === "article" && (
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "Article",
-        "headline": "${title}",
-        "image": "${new URL(image.url, Astro.site)}",
-        "description": "${description}",
-        "publisher": {
-          "@type": "Organization",
-          "name": "${churchInfo.name}",
-          "logo": {
-            "@type": "ImageObject",
-            "url": "${new URL("/uploads/logo.png", Astro.site)}"
-          }
-        },
-        "url": "${canonicalURL}",
-        "mainEntityOfPage": {
-          "@type": "WebPage",
-          "@id": "${canonicalURL}"
-        }
-      }
-    </script>
-  )
-}
+<script type="application/ld+json" set:html={JSON.stringify(schemaData)} />

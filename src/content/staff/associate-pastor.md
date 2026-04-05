@@ -6,7 +6,7 @@ email: "sarah.martinez@churchname.org"
 phone: "+1-555-0102"
 bio: "Pastor Sarah leads our women's ministry and provides pastoral care with a heart for discipleship and community building."
 order: 2
-draft: false
+draft: True
 ---
 
 Rev. Sarah Martinez joined our pastoral team in 2019, bringing extensive experience in women's ministry and pastoral care. She holds a Master of Divinity from Christian Seminary and is passionate about discipleship.

@@ -7,7 +7,7 @@ coordinator: "Robert Johnson"
 contact: "mens@churchname.org"
 schedule: "Men's Breakfast: 1st Saturday 8:00 AM | Bible Study: Thursday 7:00 PM"
 order: 4
-draft: false
+draft: true
 ---
 
 ## Our Purpose

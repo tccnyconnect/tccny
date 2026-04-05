@@ -1,10 +1,10 @@
 ---
 import Button from "../UI/Button.astro";
+import { Carousel } from 'webcoreui/astro';
 
 export interface Props {
   title?: string;
   subtitle?: string;
-  backgroundImage?: string;
   ctaText?: string;
   ctaLink?: string;
   secondaryCtaText?: string;
@@ -12,9 +12,8 @@ export interface Props {
 }
 
 const {
-  title = "Welcome to Our Church",
+  title = "Telugu Christian Church (NY)",
   subtitle = "A place of worship, community, and spiritual growth",
-  backgroundImage = "/uploads/hero-bg.jpg",
   ctaText = "Plan Your Visit",
   ctaLink = "/im-new",
   secondaryCtaText = "Watch Sermons",
@@ -22,25 +21,151 @@ const {
 } = Astro.props;
 ---
 
-<section
-  class="relative min-h-[70vh] flex items-center bg-cover pt-30"
-  style={`background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(${backgroundImage}); background-position: center 20%;`}
->
+<section class="relative flex items-center min-h-[55vh] sm:min-h-[55vh] md:min-h-[75vh] lg:min-h-[75vh] xl:min-h-[75vh] overflow-hidden bg-black">
+  
+  <div id="hero-carousel" class="absolute inset-0 z-0 w-full h-full">
+    <Carousel items={2} >
 
-  <div class="container">
-    <div class="max-w-3xl text-white">
-      <h1 class="text-4xl md:text-6xl font-bold mb-4 text-white">{title}</h1>
-      <p class="text-xl md:text-2xl mb-8">{subtitle}</p>
+      <li class="w-full min-h-[55vh] sm:min-h-[55vh] md:min-h-[75vh] lg:min-h-[75vh] xl:min-h-[75vh]">
+        <img 
+          src="https://res.cloudinary.com/lucidb/image/upload/q_auto/f_auto/v1775323437/TCCNY/Untitled_design_3_gdfovp.png" 
+          alt="Sermon" 
+          class="block w-full h-full object-cover object-right-bottom" 
+        />
+      </li> 
       
-      <div class="flex flex-wrap gap-4">
-        <Button href={ctaLink} variant="primary" size="lg">
+      <li class="w-full  min-h-[55vh] sm:min-h-[55vh] md:min-h-[75vh] lg:min-h-[75vh] xl:min-h-[75vh]">
+        <img 
+          src="https://res.cloudinary.com/lucidb/image/upload/q_auto/f_auto/v1775331315/TCCNY/473680649_903652265267768_3577474227873395128_n_ucrdtg.jpg" 
+          alt="Sermon" 
+          class="block w-full h-full object-cover object-bottom" 
+        />
+      </li>
+
+    </Carousel>
+  </div>
+
+  <div class="absolute inset-0 z-10 pointer-events-none bg-black/50"></div>
+
+ <div class="container relative z-20 px-4 mx-auto md:pt-0">
+    <div class="max-w-3xl p-6 text-center text-white sm:p-10 md:text-left">
+      
+      <h1 class="mb-4 text-3xl font-bold text-white drop-shadow-md sm:text-xl md:text-4xl lg:text-4xl">
+        {title}
+      </h1>
+
+     <div class="flex flex-col sm:flex-row flex-wrap justify-left gap-3 sm:gap-4 md:justify-start">
+        
+        <Button 
+          href={ctaLink} 
+          variant="accent" 
+          class="w-full sm:w-auto px-6 py-2"
+        >
           {ctaText}
         </Button>
         
-        <Button href={secondaryCtaLink} variant="outline" size="lg" class="bg-white/10 text-white border-white hover:bg-white hover:text-gray-900 backdrop-blur-sm">
+        <Button 
+          href={secondaryCtaLink} 
+          variant="outline" 
+          size="md" 
+          class="w-full sm:w-auto text-base md:text-md md:px-4 md:py-2 text-white border-white bg-white/10 hover:bg-white/20 hover:text-orange-200 backdrop-blur-sm"
+        >
           {secondaryCtaText}
         </Button>
+      
       </div>
     </div>
   </div>
+
 </section>
+
+<style is:global>
+  /* Base Container Resets */
+  #hero-carousel,
+  #hero-carousel > div,
+  #hero-carousel ul {
+    height: 100% !important;
+    min-height: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Ensure the track allows smooth scrolling and hides scrollbars */
+  #hero-carousel ul {
+    display: flex !important;
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory !important;
+    scrollbar-width: none !important; /* Firefox */
+  }
+  #hero-carousel ul::-webkit-scrollbar {
+    display: none !important; /* Chrome/Safari */
+  }
+
+  #hero-carousel li {
+    position: relative;
+    overflow: hidden;
+    flex: 0 0 100% !important; /* Forces each slide to be 100% width */
+    scroll-snap-align: start !important;
+  }
+
+  #hero-carousel img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    /* Anchors image to bottom */
+    display: block !important; 
+  }
+
+  /* Nuclear option for hiding Pagination and Controls */
+  #hero-carousel ul ~ * {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+</style>
+
+<script>
+  setTimeout(() => {
+    const carouselWrapper = document.getElementById('hero-carousel');
+    const list = carouselWrapper?.querySelector('ul');
+    
+    if (!list) return;
+
+    const slides = list.querySelectorAll('li');
+    if (slides.length <= 1) return;
+
+    const totalSlides = slides.length;
+    let currentIndex = 0;
+    let autoScrollTimer;
+
+    const moveToNextSlide = () => {
+      currentIndex = (currentIndex + 1) % totalSlides;
+      
+      // Calculate inside the function in case the window was resized
+      const slideWidth = slides[0].clientWidth;
+      
+      // Horizontally scroll the UL only
+      list.scrollTo({ 
+        left: currentIndex * slideWidth,
+        behavior: 'smooth' 
+      });
+    };
+
+    const startAutoplay = () => {
+      clearInterval(autoScrollTimer);
+      autoScrollTimer = setInterval(moveToNextSlide, 5000); 
+    };
+
+    const stopAutoplay = () => {
+      clearInterval(autoScrollTimer);
+    };
+
+    startAutoplay();
+
+    carouselWrapper.addEventListener('mouseenter', stopAutoplay);
+    carouselWrapper.addEventListener('mouseleave', startAutoplay);
+    carouselWrapper.addEventListener('touchstart', stopAutoplay, {passive: true});
+    carouselWrapper.addEventListener('touchend', startAutoplay, {passive: true});
+  }, 100); 
+</script>

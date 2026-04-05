@@ -7,7 +7,7 @@ coordinator: "Mark Thompson"
 contact: "outreach@churchname.org"
 schedule: "Food Pantry: Saturdays 9:00 AM | Community Meals: 2nd Sunday monthly"
 order: 3
-draft: false
+draft: true
 ---
 
 ## Our Heart for the Community

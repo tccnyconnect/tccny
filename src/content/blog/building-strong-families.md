@@ -9,7 +9,7 @@ image: {
   alt: "Happy family reading together"
 }
 tags: ["family", "parenting", "relationships"]
-draft: false
+draft: true
 ---
 
 Strong families don't happen by accident. They are built intentionally through love, commitment, and biblical principles that guide daily interactions and decisions.

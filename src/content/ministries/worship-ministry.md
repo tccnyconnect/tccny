@@ -7,7 +7,7 @@ coordinator: "David Wilson"
 contact: "worship@churchname.org"
 schedule: "Rehearsals: Thursday 7:00 PM | Sunday Services: 8:00 AM & 10:30 AM"
 order: 2
-draft: false
+draft: true
 ---
 
 ## Our Vision
