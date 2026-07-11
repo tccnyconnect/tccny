@@ -18,7 +18,7 @@ Our annual Community Outreach Day is an opportunity for our church family to dem
 
 ### Service Projects
 
-**Food Distribution**
+**TEST**
 - Location: Community Center
 - Time: 9:00 AM - 12:00 PM
 - Help distribute groceries to families in need
