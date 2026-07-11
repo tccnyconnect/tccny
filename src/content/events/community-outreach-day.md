@@ -1,6 +1,6 @@
 ---
-title: "Community Outreach Day: Serving Our Neighbors"
-date: 2026-03-15
+title: "TCCNY Annual Church Retreat"
+date: 2026-08-15
 endDate: 2026-08-15
 time: "9:00 AM - 3:00 PM"
 location: "Various Community Locations"
