@@ -1,7 +1,7 @@
 ---
 title: "Community Outreach Day: Serving Our Neighbors"
-date: 2025-03-15
-endDate: 2025-03-15
+date: 2026-03-15
+endDate: 2026-08-15
 time: "9:00 AM - 3:00 PM"
 location: "Various Community Locations"
 image: "/uploads/events/community-outreach-day.webp"
