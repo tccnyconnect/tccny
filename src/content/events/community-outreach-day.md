@@ -4,7 +4,7 @@ date: 2026-08-15
 endDate: 2026-08-15
 time: "9:00 AM - 3:00 PM"
 location: "Various Community Locations"
-image: "/uploads/events/community-outreach-day.webp"
+image: "/uploads/events/church.png"
 summary: "Join us for a day of service as we reach out to our community with practical help and God's love."
 tags: ["outreach", "service", "community"]
 registrationRequired: true
